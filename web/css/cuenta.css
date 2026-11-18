@@ -37,3 +37,25 @@
   .nav-actions { gap: 12px; }
   .nav-account { font-size: 11px; }
 }
+
+/* ---------- Panel del cliente ---------- */
+.account-card .form-message{margin:-6px 0 4px}
+.account-panel{width:min(100%,520px)}
+.panel-title{font:700 32px var(--display);letter-spacing:-1px;margin:22px 0 4px}
+.panel-email{color:var(--muted);font-size:13px;margin:0 0 30px}
+.panel-heading{font:700 15px var(--display);margin:28px 0 12px}
+.panel-list{display:flex;flex-direction:column;gap:8px}
+.panel-item{display:flex;justify-content:space-between;align-items:center;gap:16px;background:#fff;padding:14px 16px;border:1px solid var(--line)}
+.panel-item strong{display:block;font-size:13px}
+.panel-item small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.panel-item-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-size:13px;font-weight:700}
+.panel-badge{font-size:10px;font-weight:700;letter-spacing:.5px;padding:6px 9px;background:#f3ecd9;color:#7a5d17;white-space:nowrap}
+.panel-badge.done{background:#eaf0df;color:#4d6d12}
+.panel-empty{color:var(--muted);font-size:12px;margin:0;padding:14px 16px;background:#fff;border:1px dashed var(--line)}
+.panel-password{margin-top:28px}
+.panel-password summary{cursor:pointer;font-size:12px;font-weight:700}
+.panel-password form{display:flex;flex-direction:column;margin-top:18px}
+.panel-password label{font-size:11px;font-weight:700;margin:0 0 8px}
+.panel-password input{font:inherit;font-size:13px;background:#fff;border:1px solid #dfe5dc;border-radius:3px;padding:14px;margin-bottom:18px;width:100%}
+.account-logout{margin-top:30px;width:100%;background:transparent;border:1px solid #cfd6cb;color:var(--ink)}
+.account-logout:hover{border-color:var(--ink)}

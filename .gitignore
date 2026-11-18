@@ -19,3 +19,9 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 .vscode/
+
+# Clave de sesión generada por el servidor web
+.secreto
+
+# Configuración local de herramientas
+.claude/

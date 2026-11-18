@@ -1,0 +1,4 @@
+flask>=3.0,<4
+werkzeug>=3.0,<4
+pyodbc>=5.1,<6
+customtkinter>=5.2,<6

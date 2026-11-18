@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#101410">
   <title>Mi cuenta — Motorhaus</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/cuenta.css">
+  <script src="js/api.js" defer></script>
   <script src="js/cuenta.js" defer></script>
 </head>
 <body class="account-page">
@@ -24,44 +26,74 @@
       <div class="account-aside-content">
         <div class="eyebrow"><span class="dot"></span> TU ESPACIO MOTORHAUS</div>
         <h1>Tu próximo camino<br><em>comienza aquí.</em></h1>
-        <p>Un espacio pensado para acompañarte en cada paso hacia tu próximo auto.</p>
+        <p>Guarda tus autos favoritos y da seguimiento a tus consultas desde un solo lugar.</p>
         <div class="account-aside-footer">MOTORHAUS &nbsp; / &nbsp; AUTOMOTIVE CLUB</div>
       </div>
     </section>
     <section class="account-content">
-      <div class="account-card">
+      <!-- Sin sesión -->
+      <div class="account-card" id="sin-sesion" hidden>
         <div class="kicker"><span></span> TU CUENTA</div>
         <div class="account-tabs" aria-label="Opciones de cuenta">
           <button type="button" class="account-tab active" data-view="acceso" aria-pressed="true">Iniciar sesión</button>
           <button type="button" class="account-tab" data-view="registro" aria-pressed="false">Crear cuenta</button>
         </div>
-        <p class="account-notice">Vista de demostración: no se crean cuentas, no se envían datos ni se inicia sesión. No introduzcas credenciales reales.</p>
         <section class="account-view" id="acceso">
           <h2>Qué bueno verte.</h2><p>Ingresa a tu espacio personal.</p>
-          <form>
-            <label for="acceso-correo">Correo electrónico</label><input id="acceso-correo" type="email" placeholder="tu@correo.com" autocomplete="off">
-            <label for="acceso-clave">Contraseña</label><input id="acceso-clave" type="password" placeholder="Tu contraseña" autocomplete="off">
+          <form id="form-acceso">
+            <label for="acceso-correo">Correo electrónico</label><input id="acceso-correo" name="correo" type="email" placeholder="tu@correo.com" autocomplete="email" required>
+            <label for="acceso-clave">Contraseña</label><input id="acceso-clave" name="clave" type="password" placeholder="Tu contraseña" autocomplete="current-password" required>
             <button type="button" class="account-link" data-view="recuperacion">¿Olvidaste tu contraseña?</button>
-            <button type="button" class="button button-dark account-submit" disabled>Iniciar sesión <span>↗</span></button>
+            <p class="form-message" aria-live="polite"></p>
+            <button type="submit" class="button button-dark account-submit">Iniciar sesión <span>↗</span></button>
           </form>
         </section>
         <section class="account-view" id="registro" hidden>
           <h2>Empecemos algo bueno.</h2><p>Crea tu espacio en Motorhaus.</p>
-          <form>
-            <label for="registro-nombre">Nombre completo</label><input id="registro-nombre" type="text" placeholder="Tu nombre" autocomplete="off">
-            <label for="registro-correo">Correo electrónico</label><input id="registro-correo" type="email" placeholder="tu@correo.com" autocomplete="off">
-            <label for="registro-clave">Contraseña</label><input id="registro-clave" type="password" placeholder="Crea una contraseña" autocomplete="off">
-            <button type="button" class="button button-dark account-submit" disabled>Crear cuenta <span>↗</span></button>
+          <form id="form-registro">
+            <label for="registro-nombre">Nombre completo</label><input id="registro-nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" maxlength="100" required>
+            <label for="registro-correo">Correo electrónico</label><input id="registro-correo" name="correo" type="email" placeholder="tu@correo.com" autocomplete="email" maxlength="150" required>
+            <label for="registro-telefono">Teléfono (opcional)</label><input id="registro-telefono" name="telefono" type="tel" placeholder="Número de contacto" autocomplete="tel" maxlength="20">
+            <label for="registro-clave">Contraseña</label><input id="registro-clave" name="clave" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" minlength="8" required>
+            <p class="form-message" aria-live="polite"></p>
+            <button type="submit" class="button button-dark account-submit">Crear cuenta <span>↗</span></button>
           </form>
         </section>
         <section class="account-view" id="recuperacion" hidden>
-          <h2>Recupera tu acceso.</h2><p>En una versión futura podrás solicitar un enlace de recuperación.</p>
-          <form>
-            <label for="recuperacion-correo">Correo electrónico</label><input id="recuperacion-correo" type="email" placeholder="tu@correo.com" autocomplete="off">
-            <button type="button" class="button button-dark account-submit" disabled>Enviar enlace <span>↗</span></button>
+          <h2>Recupera tu acceso.</h2><p>Déjanos tu correo y el equipo de Motorhaus te ayudará a restablecer tu contraseña.</p>
+          <form id="form-recuperacion">
+            <label for="recuperacion-correo">Correo electrónico</label><input id="recuperacion-correo" name="correo" type="email" placeholder="tu@correo.com" autocomplete="email" required>
+            <p class="form-message" aria-live="polite"></p>
+            <button type="submit" class="button button-dark account-submit">Solicitar ayuda <span>↗</span></button>
             <button type="button" class="account-link back-link" data-view="acceso">← Volver a iniciar sesión</button>
           </form>
         </section>
+        <a class="account-return" href="index.html">← Volver al inventario</a>
+      </div>
+
+      <!-- Con sesión -->
+      <div class="account-card account-panel" id="con-sesion" hidden>
+        <div class="kicker"><span></span> TU CUENTA</div>
+        <h2 class="panel-title">Hola, <span id="panel-nombre"></span>.</h2>
+        <p class="panel-email" id="panel-correo"></p>
+
+        <h3 class="panel-heading">Tus favoritos</h3>
+        <div id="panel-favoritos" class="panel-list"></div>
+
+        <h3 class="panel-heading">Tus consultas</h3>
+        <div id="panel-consultas" class="panel-list"></div>
+
+        <details class="panel-password">
+          <summary>Cambiar contraseña</summary>
+          <form id="form-clave">
+            <label for="clave-actual">Contraseña actual</label><input id="clave-actual" name="actual" type="password" autocomplete="current-password" required>
+            <label for="clave-nueva">Nueva contraseña</label><input id="clave-nueva" name="nueva" type="password" autocomplete="new-password" minlength="8" required>
+            <p class="form-message" aria-live="polite"></p>
+            <button type="submit" class="button button-dark account-submit">Guardar contraseña <span>↗</span></button>
+          </form>
+        </details>
+
+        <button type="button" class="button account-logout" id="cerrar-sesion">Cerrar sesión <span>→</span></button>
         <a class="account-return" href="index.html">← Volver al inventario</a>
       </div>
     </section>
